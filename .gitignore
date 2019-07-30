@@ -31,3 +31,4 @@ tmp/
 *~.nib
 local.properties
 .loadpath
+/.recommenders/

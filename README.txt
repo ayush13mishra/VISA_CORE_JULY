@@ -280,4 +280,259 @@ Week 3:
 
 	===================
 
+		Access Code: visat45
+	Recap
+	-----
+		OOP
+			instance variables ==> Heap Area
+			static variables ==> class variables ===> Class Data ==> PermGen==>MetaSpace
+
+			local variables ==> Stack
+		instance variables ==> GC
+
+		Logically grouping of objects
+		Generalization and Specialization ==> extends ==> Inheritance
+		super(); constructor chaining to super class constructor
+		abstract class:
+			can't instantiate
+		abstract method: pure virtual function without body
+			All inherited class should compulstorly override this method
+			else the inherited class should be marked abstract
+		==============
+
+		public static Time addTime(Time t1, Time 2) {
+
+		}
+
+		public Time addTime(Time t) {
+			this and t will be used
+		}
+		==================================
+
+		Realization Relationship
+		========================
+			A Component/Object will realize the behaviour specifed by Other component/object in order to communicate
+
+			Project and Laptop can communicate with each other because
+			Project has specifed that the communication can happen using HDMI/ VGA
+			Laptop realizes it
+			This is done using interface
+
+		In Software Industry
+
+		UI ==> Service ==> DAO Implementation ==> database
+
+		As of Java 7:
+		interface interfaceName{
+			abstract methods
+			constants
+		}
+
+		Why program to interface?
+			a) DESIGN
+			b) IMPLEMENTATION
+			c) TESTING
+			d) INTEGRATION
+
+			interface UserDao {
+				void register(User user);
+				boolean login(User user);
+			}
+
+
+		interface Flyable {
+			void fly();
+		}	
+
+
+		class Bird implements Flyable {
+			fly()
+		}
+
+		class Aeroplane implements Flyable {
+			fly()
+		}
+	============
+
+	Creating Objects:
+		a) If we know the class Name
+
+			obj = new ClassName();
+
+		b) We Don't know the class name, still need to create an object
+
+		String s = "java.util.Date";
+
+ 		Class.forName(s); //loads the Date class
+
+ 			Class.forName(s).newInstance();
+
+ 	==========================
+
+ 	Generic Class and interface
+
+ 		class Rectangle<T> {   				class Rectangle {
+ 			T width;								Object width;
+ 			T breadth; 								Object breadth;
+ 			//
+ 		}
+
+ 		Rectangle<Integer> r1 = new Rectangle<>(4,5);
+ 		Rectangle<Dobule> r2 = new Rectangle<>(1.4,3.5);
+
+
+ 		class Node<T> {
+ 			T data;
+ 			Node<T> next;
+ 				//
+ 		}
+
+ 		class LinkedList<T> {
+ 			Node<T> first; 
+ 			//
+ 		}
+
+ 		LinkedList<Employee> empList;
+ ====================================================
+ 											Fight f  = new Fight(); // ERROR
+interface Dance {							Fight f = new Hero();
+	dance();								f.fight();
+}											f.dance(); /ERROR
+											Dance d = (Dance) f;
+interface Swim {							d.dance();
+	swim();
+}
+
+interface Fight {
+	fight();
+}
+
+class Actor implements Dance {
+		dance(){}
+}
+
+class Hero extends Actor implements Fight, Swim {
+	fight() {} swim() {}
+}
+
+==============
 	
+
+
+	Functional Interface: is an interface where in only one method
+	needs to be implemented
+
+
+	interface Flyable {
+		void fly();
+	}
+
+	class Bird implements Flyable {
+		public void fly() {
+
+		}
+	}
+
+	Flyable f = new Flyable(); // ERROR
+
+	Flyable f = new Bird();
+
+
+	Flyable f = new Flyable() {
+		public void fly() {
+			"jump from 10th floor!!!";
+		}
+	}
+
+	f.fly();
+=================================================
+	Java Collection Framework
+		Data Containers
+		Array is a data container, should be the first choice 
+		==> Size is fixed, adding/removing at arbitrary position is difficult
+		==> Contiguos memory
+
+	JCF provides data containers which are inter-operable.
+		a) interfaces
+		b) implementations
+			==> Apache
+			==> VAVR
+		c) Utility classes
+
+
+		class Folder implements Comparable<Folder> {
+
+			int compareTo(Folder other){
+				name comparision
+			}
+		}
+
+	List 										Set
+a) supports duplicates 						unique
+b) ordered 									Not
+c) supports index based operation 			Not
+		get(20);
+		add("a", 5)
+		remove(5);
+
+d) re-ordered [ sort, shuffle, reverse]		Not
+
+	
+	BAD:
+
+		List list = new ArrayList();
+		list.add("A");
+		list.add(new Date());
+		list.add(new Product());
+
+
+		List<String> list = new ArrayList<>();
+		list.add("A");
+		list.add(new Date()); // Compilation Error
+==================================================
+
+	Functional Style of Programming
+
+	OOP 							functional style
+methods 							function
+tightly coupled to state 			functions are independent of state of		
+of object
+deposit(), getBalance()
+=============
+	
+	High Order Functions
+		=> Functions which accept other functions as arguments
+		==> function which return a function
+
+	commonly used high order functions:
+		a) map
+			transform data
+		b) filter
+			filtering
+		c) reduce
+			aggregate
+		d) forEach
+			traverse
+		e) sort
+
+
+		terminal operations:
+			forEach()
+			reduce()
+			collect()
+			sum()
+
+		intermediary operations:
+			map()
+			filter()
+			limit()
+			skip()
+			flatMap()
+			
+
+
+
+
+
+
+
