@@ -528,7 +528,246 @@ deposit(), getBalance()
 			limit()
 			skip()
 			flatMap()
-			
+
+		https://rxmarbles.com/
+	================================================
+	
+
+	products.stream()
+	products.parallelStream()
+
+	===============================================
+
+	HashSet uses hashCode() and equals() to identify duplicates
+
+		HashCode [ Numerical representation ]:
+			==> Two similar objects should have same hashcode	
+			==> Two objects with different content can also have same hashcode
+
+	Map is a key/value pair
+		==> Dictionary
+		==> Registry
+
+	Map<Key,Value> map
+
+	Map<String, Double>
+
+	Map<String, List<Employee>> 
+
+============================================================================
+	Every exception is an object
+		==> What went wrong
+		==> Where?
+		==> Why?
+	Error and Exception types of exceptions
+
+	Error types of exceptions can't be handled during runtime
+		UnsatisfiedLinkError
+		StackOverflowError
+	Exception types of excetions can be handled
+
+
+	Exception types of Exceptions can be classified into:
+	a) Checked 
+	b) Unchecked
+
+	Unchecked
+		Compiler doesn't enforce handling with try-catch
+		should be handled using conditional statements
+
+		Employee e = null;
+
+		if(e != null) {
+			String s = e.getName();
+		}
+
+		Exceptions reasons are within JRE
+
+	Checked
+		Compiler enforecs you to handle using try-catch
+		No way you can handle it with conditional statement
+		Reasons are outside JRE
+			SQLException
+			ClassNotFoundException
+			IOExcpetion
+			SocketException
+
+
+		try {
+
+		} catch(Exception ex) {
+
+		} finally {
+
+		}
+		============================
+		Compilation Errors: Code Not Reachable [ DEAD code]
+		try {
+
+		} catch(IOException ex) {
+
+		} catch(FileNotFoundException ex) {
+
+		}
+		=======================
+
+		Java Concurrent Programming ==> MultiThreaded applications
+
+		A process ==> Program in execution
+			A process needs at least one unit of work running
+			Thread is a unit of work within a process
+			Every Thread has a seperate Stack
+
+		Notepad, Calculator ==> Single Threaded application
+
+		Eclipse, Word, Browsers ==> Multi threaded applications
+		Word
+			Edit, SpellCheck, Grammer Check, AutoSaving
+
+		Why Multithreaded application?
+			a) User Experience
+			b) Avoid starvation
+			c) Optimization of available resources including CPUs
+		==============
+		Main Thread: entry point is main()
+		for every other user threads entry point is : run()
+
+		interface Runnable {
+			void run();
+		}	
+
+		Thread class: thread control methods
+			a) start()
+			b) yield()
+			c) interrupt()
+			d) join()
+			e) sleep(long ms)
+
+			deprecated:
+			f) stop()
+			g) suspend()
+			i) resume()
+
+			http://collabedit.com/k4k72
+==============================================
+
+	Thread Safety
+		A member is said to be thread safe if it doesn't get corrupted in
+			mult-threaded environment
+		local var --> Stack --> Each thread has a seperate stack --> Safe
+
+		instance var --> Heap --> shared by threads -> Not Safe
+		static var --> class data -> shared --> not Safe
+
+		Atomic variables with volatile keyword --> Safe
+
+		class SomeClass {
+			private volatile boolean flag = true;
+
+		}
+
+====================
+		Unit Testing
+		Developer has to do the UnitTesting
+
+		For every class we write a test class
+
+		Account 					AccountTest
+
+		TCER ==> Test Case Expected Result
+		
+		NO | Description | class | Method | Sample Data|expected Output| Actual |RESULT
+
+
+		UnitTesting Frameworks for Java:
+			JUnit
+			TestNG
+=================================
+
+	Java Concurrency New APIs
+
+		Problems with legacy concurrency solutions:
+		a) synchronized		
+			i) One lock per object [ instance var]
+			ii) one per class	[ static var ]
+
+			Account 
+					balance
+					profileInfo
+
+			iii) only owner can release the mutex/monitor/lock
+					Release when we come out of critical section or call wait()
+					JMX
+			iv) Lots of DeadLock
+			class BankingService {
+				public void transferFunds(Account fromAcc, Account toAcc, double amt) {
+					synchronized(fromAcc) {
+						synchronized(toAcc) {
+								update formAcc
+								update toAcc
+								insert into tx table
+						}
+					}
+				}
+			}
+
+			v) No Timeout
+
+			T1
+				SB105, SB106   60000
+			T2
+				SB106, SB105	89999
+
+	Rentrant locks
+
+		synchronized void doThat() {
+			code
+				doThis();
+			code
+		}		
+
+		synchronized void doThis() {
+
+		}			
+
+
+		@Roles("admin")
+		public void release() {
+			balLock.unlock();
+		}
+
+
+		With Lock APIs
+
+			class BankingService {
+				public void transferFunds(Account fromAcc, Account toAcc, double amt) {
+					if(fromAcc.balLock.tryLock(1000)) {
+						try{
+							if(toAcc.balLock.tryLock(1000)) {
+								try{
+										update formAcc
+										update toAcc
+										insert into tx table
+									} finally {
+										toAcc.balLock.unlock();
+									}
+							}
+						   } finally {
+						   		fromAcc.balLock.unlock();
+						   }
+					}
+				}
+			}
+
+			T1
+				SB105, SB106   60000
+			T2
+				SB106, SB105	89999
+=================================================================
+
+
+
+
 
 
 

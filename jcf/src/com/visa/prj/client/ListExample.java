@@ -2,8 +2,9 @@ package com.visa.prj.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.visa.prj.entity.Product;
 
@@ -18,6 +19,27 @@ public class ListExample {
 		products.add(new Product(912, "One Plus", 32000.00, "mobile", 100));
 		products.add(new Product(88, "HP Printer", 19000.00, "computer", 100));
 
+		
+		Map<String, List<Product>> catMap =
+				products.stream().collect(Collectors.groupingBy(p->p.getCategory()));
+		
+		Set<String> keys = catMap.keySet();
+		for(String key: keys) {
+			System.out.println(key);
+			List<Product> prds = catMap.get(key);
+			prds.forEach(System.out::println);
+		}
+		
+		System.out.println("******");
+		
+		
+		catMap.forEach((k,v) -> {
+			System.out.println(k);
+			v.forEach(System.out::println);
+		});
+		
+		
+		
 		// products.stream().filter(p->p.getCategory().equals("mobile")).forEach(p->System.out.println(p));
 
 		List<String> names = products.parallelStream().map(p -> p.getName()).collect(Collectors.toList());
